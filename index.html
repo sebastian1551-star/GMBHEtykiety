@@ -97,30 +97,30 @@
 
 <div class="app-card">
     <div class="text-center mb-4">
-        <h2 style="font-weight: 900; letter-spacing: -1px;">GENERATOR ETYKIET ENPROM</h2>
+        <h2 style="font-weight: 900; letter-spacing: -1px;">ENPROM-ETIKETTENGENERATOR</h2>
     </div>
 
     <div id="nav-tools">
-        <div class="section-title"><span>1</span> TYPY ETYKIET I TABLIC</div>
+        <div class="section-title"><span>1</span> ARTEN VON ETIKETTEN UND SCHILDERN</div>
         <div class="quick-select-grid">
             <div class="quick-tile tile-custom" onclick="showLiveKatalogSearch()">
-                <b>🔍 KATALOG ODPADÓW</b>
-                <small>Zaciągaj dowolny kod i generuj</small>
+                <b>🔍 ABFALLKATALOG</b>
+                <small>Geben Sie einen beliebigen Code ein und generieren Sie</small>
             </div>
             <div class="quick-tile tile-board" onclick="showBoards()">
-                <b>⚠️ TABLICE</b>
-                <small>Strefy / Zakazy</small>
+                <b>⚠️ TAFELN</b>
+                <small>Zonen / Verbote</small>
             </div>
             <div class="quick-tile" onclick="showCommunal()">
-                <b>♻️ KOMUNALNE</b>
-                <small>Segregacja</small>
+                <b>♻️ KOMMUNAL</b>
+                <small>Trennung</small>
             </div>
         </div>
 
-        <div class="section-title"><span>2</span> ODPADY INNE NIŻ NIEBEZPIECZNE (SZYBKI WYBÓR)</div>
+        <div class="section-title"><span>2</span> NICHT GEFÄHRLICHE ABFÄLLE (SCHNELLÜBERSICHT)</div>
         <div class="quick-select-grid" id="grid-normal"></div>
 
-        <div class="section-title"><span>3</span> ODPADY NIEBEZPIECZNE (*) (SZYBKI WYBÓR)</div>
+        <div class="section-title"><span>3</span> GEFÄHRLICHE ABFÄLLE (*) (SCHNELLWAHL)</div>
         <div class="quick-select-grid" id="grid-danger"></div>
     </div>
 
@@ -129,36 +129,36 @@
             <strong id="info-code" style="font-size: 1.4rem;"></strong><br>
             <span id="info-name" class="small font-weight-bold"></span>
         </div>
-        <button class="btn btn-sm btn-outline-secondary" onclick="resetSelection()">Zresetuj / Powrót</button>
+        <button class="btn btn-sm btn-outline-secondary" onclick="resetSelection()">Zurücksetzen / Zurück</button>
     </div>
 
     <div id="content-selection-area">
         <div class="row">
             <div class="col-md-6" id="content-col">
-                <div class="section-title"><span>A</span> ZAWARTOŚĆ / PARAMETRY</div>
+                <div class="section-title"><span>A</span> INHALT / TECHNISCHE DATEN</div>
                 
                 <div id="live-catalog-search-area" style="display:none;" class="p-3 mb-3 border rounded bg-light">
-                    <label class="small font-weight-bold text-primary">WYSZUKAJ ODPAD W CAŁEJ OFICJALNEj BAZIE:</label>
-                    <input type="text" id="catalogSearchInput" class="form-control form-control-lg" placeholder="Wpisz słowo (np. gruz, kabel, olej) lub kod..." onkeyup="filterKatalogBaza(this.value)">
+                    <label class="small font-weight-bold text-primary">SUCHE NACH ABFÄLLEN IN DER GESAMTEN OFFIZIELLEN DATENBANK (wg. AVV):</label>
+                    <input type="text" id="catalogSearchInput" class="form-control form-control-lg" placeholder="Gib ein Wort (z. B. Schutt, Kabel, Öl) oder einen Code ein..." onkeyup="filterKatalogBaza(this.value)">
                     <div id="search-results" class="search-results-box"></div>
                 </div>
 
                 <div id="dynamic-checkboxes" class="checkbox-grid"></div>
               
                 <div id="manual-input-area">
-                    <label class="small font-weight-bold">DODATKOWY OPIS / ZAWARTOŚĆ DETALICZNA:</label>
-                    <input type="text" id="contentInput" class="form-control form-control-lg" placeholder="Wpisz ręcznie szczegóły..." onkeyup="sync()">
+                    <label class="small font-weight-bold">WEITERE BESCHREIBUNG / DETAILLIERTE INHALTSANGABE:</label>
+                    <input type="text" id="contentInput" class="form-control form-control-lg" placeholder="Gib die Details manuell ein..." onkeyup="sync()">
                 </div>
 
                 <div id="normal-extra-config" style="display:none;" class="mt-4 p-3 border rounded bg-light">
-                     <label class="small font-weight-bold d-block">KONFIGURACJA NAGŁÓWKA:</label>
+                     <label class="small font-weight-bold d-block">KONFIGURATION DES KOPFZEILENTEILS:</label>
                    <select id="logoTypeSelect" class="form-control mb-3" onchange="sync()">
-                        <option value="img">LOGO FIRMOWE</option>
-                        <option value="txt">TEKST WŁASNY</option>
-                        <option value="none">BRAK NAGŁÓWKA</option>
+                        <option value="img">FIRMENLOGO</option>
+                        <option value="txt">EIGENER TEXT</option>
+                        <option value="none">KEINE ÜBERSCHRIFT</option>
                     </select>
                      <div id="brand-text-input-group">
-                        <label class="small font-weight-bold">TEKST NAGŁÓWKA:</label>
+                        <label class="small font-weight-bold">ÜBERSCHRIFT:</label>
                         <input type="text" id="brandInput" class="form-control" placeholder="Np. ENPROM Sp. z o.o." value="ENPROM" onkeyup="sync()">
                      </div>
                 </div>
@@ -166,14 +166,14 @@
 
             <div class="col-md-6" id="location-col">
                 <div id="extra-fields">
-                    <div class="section-title"><span>B</span> LOKALIZACJA I DATA</div>
+                    <div class="section-title"><span>B</span>ORT UND DATUM</div>
                     
-                    <h6 class="font-weight-bold border-bottom pb-1 text-danger">I MIEJSCE MAGAZYNOWANIA</h6>
-                    <label class="small mb-1">Baza / Miejscowość:</label>
-                    <input type="text" id="cityInput" list="city-list" class="form-control mb-2" placeholder="Zacznij pisać nazwę bazy..." oninput="handleCityAutoFill(this.value, '')">
+                    <h6 class="font-weight-bold border-bottom pb-1 text-danger">DER LAGERORT</h6>
+                    <label class="small mb-1">Standort / Ort:</label>
+                    <input type="text" id="cityInput" list="city-list" class="form-control mb-2" placeholder="Gib den Namen der Datenbank ein..." oninput="handleCityAutoFill(this.value, '')">
                     <datalist id="city-list"></datalist>
 
-                    <label class="small mb-1">Kod pocztowy:</label>
+                    <label class="small mb-1">Postleitzahl:</label>
                     <div class="d-flex align-items-center mb-2">
                         <input type="text" class="zip-tile" maxlength="1" id="z1">
                         <input type="text" class="zip-tile" maxlength="1" id="z2">
@@ -183,14 +183,14 @@
                         <input type="text" class="zip-tile" maxlength="1" id="z5">
                     </div>
 
-                    <label class="small mb-1">Adres szczegółowy:</label>
-                    <input type="text" id="streetInput" class="form-control mb-3" placeholder="ulica lub kilometr linii..." onkeyup="sync()">
+                    <label class="small mb-1">Genaue Adresse:</label>
+                    <input type="text" id="streetInput" class="form-control mb-3" placeholder="eine Straße oder ein Kilometer Strecke..." onkeyup="sync()">
 
-                    <h6 class="font-weight-bold border-bottom pb-1 text-secondary">II MIEJSCE MAGAZYNOWANIA (Jeśli dotyczy)</h6>
+                    <h6 class="font-weight-bold border-bottom pb-1 text-secondary">2. LAGERORT (falls zutreffend)</h6>
                     <label class="small mb-1">Stützpunkt / Ort II:</label>
                     <input type="text" id="cityInput2" list="city-list" class="form-control mb-2" placeholder="Gib den zweiten Standort ein..." oninput="handleCityAutoFill(this.value, '2')">
 
-                    <label class="small mb-1">Kod pocztowy II:</label>
+                    <label class="small mb-1">Postleitzahl II:</label>
                     <div class="d-flex align-items-center mb-2">
                         <input type="text" class="zip-tile" maxlength="1" id="z21">
                         <input type="text" class="zip-tile" maxlength="1" id="z22">
@@ -201,16 +201,16 @@
                     </div>
 
                     <label class="small mb-1">Adres szczegółowy II:</label>
-                    <input type="text" id="streetInput2" class="form-control mb-3" placeholder="Drugi adres..." onkeyup="sync()">
+                    <input type="text" id="streetInput2" class="form-control mb-3" placeholder="Die zweite Adresse..." onkeyup="sync()">
 
                     <hr>
-                    <label class="small font-weight-bold">DATA ROZPOCZĘCIA MAGAZYNOWANIA:</label>
+                    <label class="small font-weight-bold">BEGINN DER LAGERUNG:</label>
                     <input type="date" id="dateInput" class="form-control" onchange="sync()">
                 </div>
             </div>
         </div>
 
-        <button type="button" id="btnGen" onclick="generatePDF()" class="btn-gen mt-5">POBIERZ GOTOWĄ ETYKIETĘ (PDF)</button>
+        <button type="button" id="btnGen" onclick="generatePDF()" class="btn-gen mt-5">FERTIGES ETIKETT HERUNTERLADEN (PDF)</button>
     </div>
 </div>
 
@@ -441,8 +441,8 @@
     function showBoards() {
         currentMode = "board";
         isCommunal = false;
-        currentWaste = { code: "TABLICA", name: "Wybierz treść" };
-        setupUI("Tablice Informacyjne");
+        currentWaste = { code: "TAFEL", name: "Inhalt auswählen" };
+        setupUI("Informationstafeln");
         document.getElementById('live-catalog-search-area').style.display = 'none';
         document.getElementById('manual-input-area').style.display = 'none';
         document.getElementById('dynamic-checkboxes').innerHTML = BOARDS.map(b => 
@@ -453,7 +453,7 @@
     function selectBoard(text, el) {
         document.querySelectorAll('.checkbox-item').forEach(x => x.classList.remove('checked'));
         el.classList.add('checked');
-        currentWaste = { code: "TABLICA", name: text };
+        currentWaste = { code: "TAFEL", name: text };
         renderLabelTemplate();
         sync();
     }
