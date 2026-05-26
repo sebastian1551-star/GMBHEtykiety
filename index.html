@@ -482,17 +482,17 @@
         if (currentMode === "danger") {
             r.className = "danger-mode";
             r.innerHTML = `
-                <div class="dg-title">ODPADY NIEBEZPIECZNE</div>
+                <div class="dg-title">GEFÄHRLICHE ABFÄLLE</div>
                 <div class="dg-row">
-                    <span class="dg-label">KOD ODPADU</span>
+                    <span class="dg-label">ABFALLCODE</span>
                     <div id="res-code" class="dg-value-code"></div>
                     <img id="res-img-piktogram-danger" class="dg-piktogram" src="" crossorigin="anonymous" style="display:none;">
                 </div>
-                <div class="dg-row"><span class="dg-label">RODZAJ MAGAZYNOWANYCH ODPADÓW</span><div id="res-name" class="dg-value-name"></div></div>
-                <div class="dg-row"><span class="dg-label">ZAWARTOŚĆ</span><div id="res-content" class="dg-value-content"></div></div>
+                <div class="dg-row"><span class="dg-label">ART DER GELAGERTEN ABFÄLLE</span><div id="res-name" class="dg-value-name"></div></div>
+                <div class="dg-row"><span class="dg-label">INHALT</span><div id="res-content" class="dg-value-content"></div></div>
                 <table class="dg-table">
                     <tr>
-                        <th>ADRES I MIEJSCA MAGAZYNOWANIA ODPADÓW</th>
+                        <th>ADRESSE UND LAGERSTÄTTEN FÜR ABFÄLLE</th>
                         <th>DATA ROZPOCZĘCIA MAGAZYNOWANIA</th>
                     </tr>
                     <tr>
@@ -500,7 +500,7 @@
                         <td id="res-date" rowspan="3" style="width: 50%; vertical-align: middle;"></td>
                     </tr>
                     <tr>
-                        <th>ADRES II MIEJSCA MAGAZYNOWANIA ODPADÓW</th>
+                        <th>ADRESSE DES ZWEITEN ABFALLLAGERSTELLEN</th>
                     </tr>
                     <tr>
                         <td id="res-addr2">---</td>
@@ -637,7 +637,7 @@
         btn.disabled = true;
 
         try {
-            // Pobranie kodu odpadu i sformatowanie nazwy pliku
+            // Abfallcode abrufen und Dateinamen formatieren
             const code = currentWaste ? currentWaste.code : (document.getElementById('info-code') ? document.getElementById('info-code').innerText : "Etykieta");
             const fileName = code.replace(/\s+/g, '_').replace('*', '') + ".pdf";
 
@@ -654,7 +654,7 @@
             alert("Błąd generowania PDF!"); 
         }
         
-        btn.innerText = "POBIERZ GOTOWĄ ETYKIETĘ (PDF)";
+        btn.innerText = "FERTIGES ETIKETT HERUNTERLADEN (PDF)";
         btn.disabled = false;
     }
 
