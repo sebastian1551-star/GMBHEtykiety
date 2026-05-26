@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>ENPROM-Generator für Etiketten und Schilder</title>
@@ -44,7 +44,7 @@
         #extra-fields { display: none; padding: 20px; border-radius: 15px; background: #fff5f5; border: 1px solid #ffdada; margin-top: 20px; }
         .zip-tile { width: 38px; height: 42px; text-align: center; font-weight: bold; border: 2px solid #ddd; border-radius: 6px; font-size: 1.2rem; }
 
-        /* WYSZUKIWARKA KATALOGU LIVE */
+        /* LIVE-KATALOG-SUCHE */
         .search-results-box { max-height: 250px; overflow-y: auto; border: 1px solid #ccc; border-radius: 8px; background: white; margin-top: 5px; display: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .search-item { padding: 10px 15px; cursor: pointer; border-bottom: 1px solid #eee; transition: background 0.1s; font-size: 0.9rem; text-align: left; }
         .search-item:hover { background: #f1f3f5; }
@@ -53,7 +53,7 @@
         /* RENDERER CORE */
         #label-render { position: absolute; left: -9999px; background: white; color: black; box-sizing: border-box; }
         
-        /* MODE: DANGER */
+        /* MODUS: GEFÄHRLICH */
         #label-render.danger-mode { width: 780px; height: 1200px; border: 25px solid red; padding: 30px; display: block; position: absolute; box-sizing: border-box; }
         .dg-title { font-size: 52px; font-weight: 900; text-align: center; margin-bottom: 20px; }
         .dg-row { border: 2px solid black; margin-bottom: -2px; padding: 10px 15px; position: relative; box-sizing: border-box; }
@@ -67,7 +67,7 @@
         .dg-table th { border: 2px solid black; padding: 6px; width: 50%; font-size: 14px; text-align: center; background: #f9f9f9; height: 50px; text-transform: uppercase; font-weight: 800; }
         .dg-table td { border: 2px solid black; padding: 8px; font-size: 18px; font-weight: 900; height: 85px; text-align: center; vertical-align: middle; }
 
-        /* MODE: NORMAL */
+        /* MODUS: NORMAL */
         #label-render.normal-mode { width: 1122px; height: 794px; border: 30px solid black; padding: 40px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; position: absolute; box-sizing: border-box; }
         .nm-logo-txt { font-size: 38px; font-weight: 900; margin-bottom: 5px; border-bottom: 5px solid #000; width: 100%; padding-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
         .nm-logo-img { max-height: 80px; margin-bottom: 5px; object-fit: contain; }
@@ -77,7 +77,7 @@
         .nm-icons-row { display: flex; align-items: center; justify-content: center; width: 100%; margin: 10px 0; gap: 60px; margin-top: auto; }
         .nm-icon { max-height: 280px; max-width: 280px; object-fit: contain; }
 
-        /* MODE: BOARD */
+        /* MODUS: SCHILD */
         #label-render.board-mode { width: 1122px; height: 794px; border: 25px solid black; display: flex; align-items: center; justify-content: center; position: absolute; box-sizing: border-box; }
         .board-text { font-size: 110px; font-weight: 900; text-align: center; text-transform: uppercase; padding: 40px; }
 
@@ -122,7 +122,7 @@
 
         <div class="section-title"><span>3</span> GEFÄHRLICHE ABFÄLLE (*) (SCHNELLWAHL)</div>
         <div class="quick-select-grid" id="grid-danger"></div>
-    </div>
+   </div>
 
     <div id="selected-waste-info">
         <div>
@@ -151,22 +151,22 @@
                 </div>
 
                 <div id="normal-extra-config" style="display:none;" class="mt-4 p-3 border rounded bg-light">
-                     <label class="small font-weight-bold d-block">KONFIGURATION DES KOPFZEILENTEILS:</label>
-                   <select id="logoTypeSelect" class="form-control mb-3" onchange="sync()">
+                    <label class="small font-weight-bold d-block">KONFIGURATION DES KOPFZEILENTEILS:</label>
+                    <select id="logoTypeSelect" class="form-control mb-3" onchange="sync()">
                         <option value="img">FIRMENLOGO</option>
                         <option value="txt">EIGENER TEXT</option>
                         <option value="none">KEINE ÜBERSCHRIFT</option>
                     </select>
-                     <div id="brand-text-input-group">
+                    <div id="brand-text-input-group">
                         <label class="small font-weight-bold">ÜBERSCHRIFT:</label>
-                        <input type="text" id="brandInput" class="form-control" placeholder="Np. ENPROM Sp. z o.o." value="ENPROM" onkeyup="sync()">
-                     </div>
+                        <input type="text" id="brandInput" class="form-control" placeholder="z. B. ENPROM Sp. z o.o." value="ENPROM" onkeyup="sync()">
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-6" id="location-col">
                 <div id="extra-fields">
-                    <div class="section-title"><span>B</span>ORT UND DATUM</div>
+                    <div class="section-title"><span>B</span> ORT UND DATUM</div>
                     
                     <h6 class="font-weight-bold border-bottom pb-1 text-danger">DER LAGERORT</h6>
                     <label class="small mb-1">Standort / Ort:</label>
@@ -200,10 +200,11 @@
                         <input type="text" class="zip-tile" maxlength="1" id="z25">
                     </div>
 
-                    <label class="small mb-1">Adres szczegółowy II:</label>
+                    <label class="small mb-1">Genaue Adresse II:</label>
                     <input type="text" id="streetInput2" class="form-control mb-3" placeholder="Die zweite Adresse..." onkeyup="sync()">
 
                     <hr>
+                    
                     <label class="small font-weight-bold">BEGINN DER LAGERUNG:</label>
                     <input type="date" id="dateInput" class="form-control" onchange="sync()">
                 </div>
@@ -307,16 +308,13 @@
         { code: "20 03 01", name: "GEMISCHT", img: "zmieszane.jpg", icon: "img2/zmieszane.jpeg", yes: "Papierhandtücher, gebrauchte Masken, Speisereste (Fleisch)", no: "Gefahrliche Abfälle, Elektroschrott, Bauschutt, Batterien" },
         { code: "20 02 01", name: "BIO", img: "bio.jpg", icon: "img2/bio.jpeg", yes: "Schalen, Obst- und Gemüsereste, Grasschnitt, Äste", no: "Knochen, Fleisch, Tierkot, Erde, Steine" }
     ];
-
-    const BOARDS = ["Zur Entsorgung", "Leere Gasflaschen", "Volle Gasflaschen", "Gasflaschenlager", "Lager für gefährliche Chemikalien", "Gefährliche Stoffe/Gemische (dangerous substances and mixtures)", "ADR VERBANDSKASTEN", "GEFÄHRLICHE ABFÄLLE", "ABFALLLAGERBEREICH", "ABFALLSAMMELSTELLE", "ABFALLSAMMELPLATZ", "RAUCHVERBOT"];    
+    const BOARDS = ["Zur Entsorgung", "Leere Gasflaschen", "Volle Gasflaschen", "Gasflaschenlager", "Lager für gefährliche Chemikalien", "Gefährliche Stoffe/Gemische (dangerous substances and mixtures)", "ADR VERBANDSKASTEN", "GEFÄHRLICHE ABFÄLLE", "ABFALLLAGERBEREICH", "ABFALLSAMMELSTELLE", "ABFALLSAMMELPLATZ", "RAUCHVERBOT"];
     const LOCATIONS = [
         { name: "STADE", zip: "00000", street: "" },
     ];
-
     let currentMode = "normal";
     let isCommunal = false;
     let currentWaste = null;
-
     window.onload = () => {
         const gn = document.getElementById('grid-normal');
         const gd = document.getElementById('grid-danger');
@@ -332,7 +330,6 @@
         const dl = document.getElementById('city-list');
         LOCATIONS.forEach(l => { let o = document.createElement('option'); o.value = l.name; dl.appendChild(o); });
     };
-
     function selectWaste(waste) {
         currentWaste = waste;
         isCommunal = false;
@@ -350,9 +347,9 @@
     function showLiveKatalogSearch() {
         isCommunal = false;
         currentMode = "normal";
-        currentWaste = { code: "---", name: "Zacznij pisać poniżej...", items: [] };
+        currentWaste = { code: "---", name: "Fangen Sie unten zu schreiben an...", items: [] };
         
-        setupUI("Wyszukiwarka Katalogu Odpadów");
+        setupUI("Abfallkatalog-Suchmaschine");
         document.getElementById('live-catalog-search-area').style.display = 'block';
         document.getElementById('manual-input-area').style.display = 'block';
         document.getElementById('dynamic-checkboxes').innerHTML = '';
@@ -373,9 +370,8 @@
             item.code.replace(/\s+/g, '').includes(query.replace(/\s+/g, '')) || 
             item.name.toLowerCase().includes(query.toLowerCase())
         );
-
         if (filtered.length === 0) {
-            resultsBox.innerHTML = `<div class="search-item text-muted">Brak dopasowań w oficjalnej bazie</div>`;
+            resultsBox.innerHTML = `<div class="search-item text-muted">Keine Treffer in der offiziellen Datenbank</div>`;
         } else {
             resultsBox.innerHTML = filtered.map(item => {
                 const isDangerous = item.code.includes('*');
@@ -406,7 +402,6 @@
         
         const cleanCode = code.replace(/\s+/g, '').replace('*', '');
         currentWaste.piktogram = isDangerous ? `${cleanCode}.jpeg` : (["170411", "170405", "170201", "170102", "170504", "170904", "150101", "150102"].includes(cleanCode) ? `${cleanCode}.jpeg` : null);
-        
         if (["170405", "170201", "170102", "170504", "170904"].includes(cleanCode)) {
             currentWaste.piktogram = `${cleanCode}.png`;
         }
@@ -419,8 +414,8 @@
     function showCommunal() {
         currentMode = "normal";
         isCommunal = true;
-        currentWaste = { code: "---", name: "WYBIERZ FRAKCJĘ" };
-        setupUI("Odpady Komunalne");
+        currentWaste = { code: "---", name: "FRAKTION WÄHLEN" };
+        setupUI("Kommunale Abfälle");
         document.getElementById('live-catalog-search-area').style.display = 'none';
         document.getElementById('manual-input-area').style.display = 'none';
         document.getElementById('dynamic-checkboxes').innerHTML = COMMUNAL.map(c => `
@@ -467,7 +462,6 @@
         
         document.getElementById('extra-fields').style.display = (currentMode === "danger") ? 'block' : 'none';
         document.getElementById('normal-extra-config').style.display = (currentMode === "normal" && !isCommunal) ? 'block' : 'none';
-        
         if (isCommunal || currentMode === "board") {
             document.getElementById('location-col').style.display = 'none';
             document.getElementById('content-col').className = 'col-md-12';
@@ -493,7 +487,7 @@
                 <table class="dg-table">
                     <tr>
                         <th>ADRESSE UND LAGERSTÄTTEN FÜR ABFÄLLE</th>
-                        <th>DATA ROZPOCZĘCIA MAGAZYNOWANIA</th>
+                        <th>DATUM DES BEGINNS DER LAGERUNG</th>
                     </tr>
                     <tr>
                         <td id="res-addr" style="width: 50%;"></td>
@@ -527,11 +521,11 @@
                 </div>
                 <div id="res-communal-desc" class="communal-desc" style="display:none">
                     <div class="desc-box">
-                        <div class="desc-title text-green">Wrzucamy:</div>
+                        <div class="desc-title text-green">Einwerfen:</div>
                         <div id="res-yes" class="desc-list"></div>
                     </div>
                     <div class="desc-box">
-                        <div class="desc-title text-red">Nie wrzucamy:</div>
+                        <div class="desc-title text-red">Nicht einwerfen:</div>
                         <div id="res-no" class="desc-list"></div>
                     </div>
                 </div>
@@ -547,7 +541,6 @@
 
     function sync() {
         if (!currentWaste) return;
-        
         if (currentMode === "danger") {
             document.getElementById('res-code').innerText = currentWaste.code;
             document.getElementById('res-name').innerText = currentWaste.name.toUpperCase();
@@ -559,7 +552,7 @@
             
             const pikto = document.getElementById('res-img-piktogram-danger');
             if(currentWaste.piktogram) { 
-                pikto.src = currentWaste.piktogram; 
+                pikto.src = currentWaste.piktogram;
                 pikto.style.display = 'block';
             } else { 
                 pikto.style.display = 'none';
@@ -568,7 +561,6 @@
             const zip = [1,2,3,4,5].map(i => document.getElementById('z'+i).value).join('');
             const addr = [zip.length >= 2 ? zip.substring(0,2)+'-'+zip.substring(2) : zip, document.getElementById('cityInput').value, document.getElementById('streetInput').value].filter(Boolean).join(', ');
             document.getElementById('res-addr').innerText = addr || "---";
-            
             const zip2 = [1,2,3,4,5].map(i => document.getElementById('z2'+i).value).join('');
             const addr2 = [zip2.length >= 2 ? zip2.substring(0,2)+'-'+zip2.substring(2) : zip2, document.getElementById('cityInput2').value, document.getElementById('streetInput2').value].filter(Boolean).join(', ');
             document.getElementById('res-addr2').innerText = addr2 || "---";
@@ -587,7 +579,6 @@
             const piktoNormal = document.getElementById('res-img-piktogram');
             
             document.getElementById('res-brand-container').style.display = 'block';
-            
             if (!isCommunal) {
                 const selectedType = document.getElementById('logoTypeSelect').value;
                 document.getElementById('res-brand-img').style.display = selectedType === 'img' ? 'inline-block' : 'none';
@@ -606,7 +597,7 @@
                 
                 bin.src = currentWaste.img;
                 bin.style.display = 'block';
-                ico.src = currentWaste.icon; 
+                ico.src = currentWaste.icon;
                 ico.style.display = 'block';
                 piktoNormal.style.display = 'none';
             } else {
@@ -633,25 +624,23 @@
 
    async function generatePDF() {
         const btn = document.getElementById('btnGen');
-        btn.innerText = "⏳ GENEROWANIE..."; 
+        btn.innerText = "⏳ GENERIERUNG..."; 
         btn.disabled = true;
 
         try {
             // Abfallcode abrufen und Dateinamen formatieren
-            const code = currentWaste ? currentWaste.code : (document.getElementById('info-code') ? document.getElementById('info-code').innerText : "Etykieta");
+            const code = currentWaste ? currentWaste.code : (document.getElementById('info-code') ? document.getElementById('info-code').innerText : "Etikett");
             const fileName = code.replace(/\s+/g, '_').replace('*', '') + ".pdf";
-
             const orient = (currentMode === "danger") ? 'p' : 'l';
             const canvas = await html2canvas(document.getElementById('label-render'), { scale: 2, useCORS: true });
             const { jsPDF } = window.jspdf;
-            
             const pdf = new jsPDF({ orientation: orient, unit: 'mm', format: 'a4' });
             pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0, orient === 'p' ? 210 : 297, orient === 'p' ? 297 : 210);
             
             pdf.save(fileName);
         } catch (e) { 
             console.error(e);
-            alert("Błąd generowania PDF!"); 
+            alert("Fehler bei der PDF-Generierung!");
         }
         
         btn.innerText = "FERTIGES ETIKETT HERUNTERLADEN (PDF)";
