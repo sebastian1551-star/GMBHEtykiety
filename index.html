@@ -187,8 +187,8 @@
                     <input type="text" id="streetInput" class="form-control mb-3" placeholder="ulica lub kilometr linii..." onkeyup="sync()">
 
                     <h6 class="font-weight-bold border-bottom pb-1 text-secondary">II MIEJSCE MAGAZYNOWANIA (Jeśli dotyczy)</h6>
-                    <label class="small mb-1">Baza / Miejscowość II:</label>
-                    <input type="text" id="cityInput2" list="city-list" class="form-control mb-2" placeholder="Wpisz drugą lokalizację..." oninput="handleCityAutoFill(this.value, '2')">
+                    <label class="small mb-1">Stützpunkt / Ort II:</label>
+                    <input type="text" id="cityInput2" list="city-list" class="form-control mb-2" placeholder="Gib den zweiten Standort ein..." oninput="handleCityAutoFill(this.value, '2')">
 
                     <label class="small mb-1">Kod pocztowy II:</label>
                     <div class="d-flex align-items-center mb-2">
@@ -312,7 +312,6 @@
     
     const LOCATIONS = [
         { name: "STADE", zip: "00000", street: "" },
-       
     ];
 
     let currentMode = "normal";
