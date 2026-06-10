@@ -139,7 +139,7 @@
                 
                 <div id="live-catalog-search-area" style="display:none;" class="p-3 mb-3 border rounded bg-light">
                     <label class="small font-weight-bold text-primary">SUCHE NACH ABFÄLLEN IN DER GESAMTEN OFFIZIELLEN DATENBANK (gemäß AVV):</label>
-                    <input type="text" id="catalogSearchInput" class="form-control form-control-lg" placeholder="Gib ein Wort (z. B. Schutt, Kabel, Öl) oder einen Code ein..." onkeyup="filterKatalogBaza(this.value)">
+                    <input type="text" id="catalogSearchInput" class="form-control form-control-lg" placeholder="Geben Sie ein Wort (z. B. Schutt, Kabel, Öl) oder einen Code ein..." onkeyup="filterWasteCatalog(this.value)">
                     <div id="search-results" class="search-results-box"></div>
                 </div>
 
@@ -147,7 +147,7 @@
               
                 <div id="manual-input-area">
                     <label class="small font-weight-bold">WEITERE BESCHREIBUNG / DETAILLIERTE INHALTSANGABE:</label>
-                    <input type="text" id="contentInput" class="form-control form-control-lg" placeholder="Gib die Details manuell ein..." onkeyup="sync()">
+                    <input type="text" id="contentInput" class="form-control form-control-lg" placeholder="Geben Sie die Details manuell ein..." onkeyup="sync()">
                 </div>
 
                 <div id="normal-extra-config" style="display:none;" class="mt-4 p-3 border rounded bg-light">
@@ -168,9 +168,9 @@
                 <div id="extra-fields">
                     <div class="section-title"><span>B</span>ORT UND DATUM</div>
                     
-                    <h6 class="font-weight-bold border-bottom pb-1 text-danger">DER LAGERORT</h6>
+                    <h6 class="font-weight-bold border-bottom pb-1 text-danger">LAGERORT</h6>
                     <label class="small mb-1">Standort / Ort:</label>
-                    <input type="text" id="cityInput" list="city-list" class="form-control mb-2" placeholder="Gib den Namen der Datenbank ein..." oninput="handleCityAutoFill(this.value, '')">
+                    <input type="text" id="cityInput" list="city-list" class="form-control mb-2" placeholder="Geben Sie den Standort ein..." oninput="handleCityAutoFill(this.value, '')">
                     <datalist id="city-list"></datalist>
 
                     <label class="small mb-1">Postleitzahl:</label>
@@ -184,11 +184,11 @@
                     </div>
 
                     <label class="small mb-1">Genaue Adresse:</label>
-                    <input type="text" id="streetInput" class="form-control mb-3" placeholder="eine Straße oder ein Kilometer Strecke..." onkeyup="sync()">
+                    <input type="text" id="streetInput" class="form-control mb-3" placeholder="Straße, Hausnummer oder Streckenabschnitt..." onkeyup="sync()">
 
                     <h6 class="font-weight-bold border-bottom pb-1 text-secondary">2. LAGERORT (falls zutreffend)</h6>
-                    <label class="small mb-1">Stützpunkt / Ort II:</label>
-                    <input type="text" id="cityInput2" list="city-list" class="form-control mb-2" placeholder="Gib den zweiten Standort ein..." oninput="handleCityAutoFill(this.value, '2')">
+                    <label class="small mb-1">Standort / Ort II:</label>
+                    <input type="text" id="cityInput2" list="city-list" class="form-control mb-2" placeholder="Geben Sie den zweiten Standort ein..." oninput="handleCityAutoFill(this.value, '2')">
 
                     <label class="small mb-1">Postleitzahl II:</label>
                     <div class="d-flex align-items-center mb-2">
@@ -219,19 +219,19 @@
 <script>
     const WASTES = [
         { code: "15 01 10*", name: "VERPACKUNGEN, DIE RÜCKSTÄNDE GEFÄHRLICHER STOFFE ENTHALTEN", items: ["FARBBEHÄLTER", "FETTVERPACKUNGEN", "AEROSOLE", "CHEMIEFLASCHEN"], piktogram: "img/150110.jpeg" },
-        { code: "15 02 02*", name: "SORPTIONSMITTEL, FILTERMATERIALIEN, WISCHTÜCHER UND SCHUTZKLEIDUNG, DIE MIT GEFÄHRLICHEN STOFFEN VERUNREINIGT SIND", items: ["ÖL-LAPPEN", "SORBENT", "ÖLFILTER", "GEBRAUCHTE HANDSCHUHE"], piktogram: "img/150202.jpeg" },
+        { code: "15 02 02*", name: "SORPTIONSMITTEL, FILTERMATERIALIEN, WISCHTÜCHER UND SCHUTZKLEIDUNG, DIE MIT GEFÄHRLICHEN STOFFEN VERUNREINIGT SIND", items: ["ÖL-LAPPEN", "SORPTIONSMITTEL", "ÖLFILTER", "GEBRAUCHTE HANDSCHUHE"], piktogram: "img/150202.jpeg" },
         { code: "16 02 13*", name: "Gebrauchte (gefährliche) Geräte", items: ["COMPUTER/MONITORE", "ELEKTROWERKZEUGE", "TRANSFORMATOREN"] },
         { code: "17 04 10*", name: "Kabel, die Erdöl, Teer und andere gefährliche Stoffe enthalten", items: ["ÖLKABEL", "TEERKABEL"] },
         { code: "16 06 01*", name: "Blei-Batterien und -Akkumulatoren", items: ["FAHRZEUG-AKKUS", "USV-BATTERIEN"] },
-        { code: "16 02 16", name: "Gebrauchte Geräte, die nicht unter 16 02 09 bis 16 02 15 aufgeführt sind", items: ["WASSERKOCHER/HAUSHALTSGERÄTE", "ELEKTRISCHE GERÄTE", "TASTATUREN/MAUSEN", "KABEL UND LEITUNGEN"] },
-        { code: "17 04 07", name: "Metallgemische", items: ["NEBENMETALLE", "GEMISCHTER SCHROTT", "GERÄTETEILE"] },
+        { code: "16 02 16", name: "Gebrauchte Geräte, die nicht unter 16 02 09 bis 16 02 15 aufgeführt sind", items: ["WASSERKOCHER/HAUSHALTSGERÄTE", "ELEKTRISCHE GERÄTE", "TASTATUREN/MÄUSE", "KABEL UND LEITUNGEN"] },
+        { code: "17 04 07", name: "Metallgemische", items: ["NE-METALLE", "GEMISCHTER SCHROTT", "GERÄTETEILE"] },
         { code: "17 04 11", name: "Kabel, ausgenommen 17 04 10", items: ["KUPFERKABEL", "ALUMINIUMKABEL", "ISOLIERTE KABEL"], piktogram: "170411.jpeg" },
         { code: "17 04 05", name: "Eisen und Stahl", items: ["STAHLKONSTRUKTIONEN", "ROHRE UND PROFILE", "BEWEHRUNGSSTÄBE"], piktogram: "170405.png" },
         { code: "17 02 01", name: "Holz", items: ["EURO-PALETTEN", "BESCHÄDIGTE KISTEN", "SCHALUNGSBRETTER"], piktogram: "170201.png" },
         { code: "17 01 02", name: "Ziegel", items: ["VOLLZIEGEL", "ZIEGELABFALL", "HOHLZIEGEL"], piktogram: "170102.png" },
-        { code: "17 05 04", name: "Boden und Erde (außer 17 05 04)", items: ["AUSHUBERDE", "STEIN", "AUSHUB"], piktogram: "170504.png" },
+        { code: "17 05 04", name: "Boden und Steine (außer 17 05 03)", items: ["AUSHUBERDE", "STEIN", "AUSHUB"], piktogram: "170504.png" },
         { code: "17 09 04", name: "Gemischte Abfälle aus Bau-, Renovierungs- und Abbrucharbeiten, andere als die unter 17 09 01, 17 09 02 und 17 09 03 genannten", items: ["BAUSCHUTT", "KERAMIK", "GIPSKARTONPLATTEN"], piktogram: "170904.png" },
-        { code: "15 01 01", name: "VERPACKUNGEN AUS PAPIER UND PAPPE", items: ["KARTONS", "VERPACKUNGSPAPIER", "ROHREN"], piktogram: "img/150101.jpeg" },
+        { code: "15 01 01", name: "VERPACKUNGEN AUS PAPIER UND PAPPE", items: ["KARTONS", "VERPACKUNGSPAPIER", "PAPPHÜLSEN"], piktogram: "img/150101.jpeg" },
         { code: "15 01 02", name: "VERPACKUNGEN AUS KUNSTSTOFF", items: ["STRETCHFOLIE", "LEERE FLASCHEN", "PET-FLASCHEN", "KUNSTSTOFFPALETTEN"], piktogram: "img/150102.jpeg" },
     ];
 
@@ -308,7 +308,7 @@
         { code: "20 02 01", name: "BIO", img: "bio.jpg", icon: "img2/bio.jpeg", yes: "Schalen, Obst- und Gemüsereste, Grasschnitt, Äste", no: "Knochen, Fleisch, Tierkot, Erde, Steine" }
     ];
 
-    const BOARDS = ["Zur Entsorgung", "Leere Gasflaschen", "Volle Gasflaschen", "Gasflaschenlager", "Lager für gefährliche Chemikalien", "Gefährliche Stoffe/Gemische (dangerous substances and mixtures)", "ADR VERBANDSKASTEN", "GEFÄHRLICHE ABFÄLLE", "ABFALLLAGERBEREICH", "ABFALLSAMMELSTELLE", "ABFALLSAMMELPLATZ", "RAUCHVERBOT"];    
+    const BOARDS = ["Zur Entsorgung", "Leere Gasflaschen", "Volle Gasflaschen", "Gasflaschenlager", "Lager für gefährliche Chemikalien", "Gefährliche Stoffe/Gemische", "ADR-VERBANDSKASTEN", "GEFÄHRLICHE ABFÄLLE", "ABFALLLAGERBEREICH", "ABFALLSAMMELSTELLE", "ABFALLSAMMELPLATZ", "RAUCHVERBOT"];    
     const LOCATIONS = [
         { name: "STADE", zip: "00000", street: "" },
     ];
@@ -362,7 +362,7 @@
         sync();
     }
 
-    function filterKatalogBaza(query) {
+    function filterWasteCatalog(query) {
         const resultsBox = document.getElementById('search-results');
         if (!query || query.trim().length < 1) {
             resultsBox.style.display = 'none';
@@ -381,7 +381,7 @@
                 const isDangerous = item.code.includes('*');
                 const badgeClass = isDangerous ? 'badge-danger' : 'badge-success';
                 return `
-                    <div class="search-item" onclick="selectFromBazaKatalogu('${item.code}', '${item.name.replace(/'/g, "\\'")}')">
+                    <div class="search-item" onclick="selectFromWasteCatalog('${item.code}', '${item.name.replace(/'/g, "\\'")}')">
                         <span class="badge ${badgeClass}">${item.code}</span>
                         <span>${item.name}</span>
                     </div>
@@ -391,7 +391,7 @@
         resultsBox.style.display = 'block';
     }
 
-    function selectFromBazaKatalogu(code, name) {
+    function selectFromWasteCatalog(code, name) {
         document.getElementById('search-results').style.display = 'none';
         document.getElementById('catalogSearchInput').value = `${code} - ${name}`;
         
