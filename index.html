@@ -177,7 +177,6 @@
                     <div class="d-flex align-items-center mb-2">
                         <input type="text" class="zip-tile" maxlength="1" id="z1">
                         <input type="text" class="zip-tile" maxlength="1" id="z2">
-                        <span style="font-size: 20px; font-weight: bold; margin: 0 5px;">-</span>
                         <input type="text" class="zip-tile" maxlength="1" id="z3">
                         <input type="text" class="zip-tile" maxlength="1" id="z4">
                         <input type="text" class="zip-tile" maxlength="1" id="z5">
@@ -194,7 +193,6 @@
                     <div class="d-flex align-items-center mb-2">
                         <input type="text" class="zip-tile" maxlength="1" id="z21">
                         <input type="text" class="zip-tile" maxlength="1" id="z22">
-                        <span style="font-size: 20px; font-weight: bold; margin: 0 5px;">-</span>
                         <input type="text" class="zip-tile" maxlength="1" id="z23">
                         <input type="text" class="zip-tile" maxlength="1" id="z24">
                         <input type="text" class="zip-tile" maxlength="1" id="z25">
@@ -566,11 +564,11 @@
             }
 
             const zip = [1,2,3,4,5].map(i => document.getElementById('z'+i).value).join('');
-            const addr = [zip.length >= 2 ? zip.substring(0,2)+'-'+zip.substring(2) : zip, document.getElementById('cityInput').value, document.getElementById('streetInput').value].filter(Boolean).join(', ');
+            const addr = [zip, document.getElementById('cityInput').value, document.getElementById('streetInput').value].filter(Boolean).join(', ');
             document.getElementById('res-addr').innerText = addr || "---";
             
             const zip2 = [1,2,3,4,5].map(i => document.getElementById('z2'+i).value).join('');
-            const addr2 = [zip2.length >= 2 ? zip2.substring(0,2)+'-'+zip2.substring(2) : zip2, document.getElementById('cityInput2').value, document.getElementById('streetInput2').value].filter(Boolean).join(', ');
+            const addr2 = [zip2, document.getElementById('cityInput2').value, document.getElementById('streetInput2').value].filter(Boolean).join(', ');
             document.getElementById('res-addr2').innerText = addr2 || "---";
             
             document.getElementById('res-date').innerText = document.getElementById('dateInput').value;
