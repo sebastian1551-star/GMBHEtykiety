@@ -52,6 +52,9 @@
 
         /* RENDERER CORE */
         #label-render { position: absolute; left: -9999px; background: white; color: black; box-sizing: border-box; }
+        .label-logo { position: absolute; left: 32px; top: 28px; width: 155px; max-height: 82px; object-fit: contain; z-index: 10; }
+        #label-render.danger-mode .label-logo { left: 28px; top: 24px; width: 145px; max-height: 76px; }
+        #label-render.normal-mode .label-logo { left: 34px; top: 28px; width: 170px; max-height: 88px; }
         
         /* MODE: DANGER */
         #label-render.danger-mode { width: 780px; height: 1200px; border: 25px solid red; padding: 30px; display: block; position: absolute; box-sizing: border-box; }
@@ -223,12 +226,12 @@
         { code: "16 06 01*", name: "Blei-Batterien und -Akkumulatoren", items: ["FAHRZEUG-AKKUS", "USV-BATTERIEN"] },
         { code: "16 02 16", name: "Gebrauchte Geräte, die nicht unter 16 02 09 bis 16 02 15 aufgeführt sind", items: ["WASSERKOCHER/HAUSHALTSGERÄTE", "ELEKTRISCHE GERÄTE", "TASTATUREN/MÄUSE", "KABEL UND LEITUNGEN"] },
         { code: "17 04 07", name: "Metallgemische", items: ["NE-METALLE", "GEMISCHTER SCHROTT", "GERÄTETEILE"] },
-        { code: "17 04 11", name: "Kabel, ausgenommen 17 04 10", items: ["KUPFERKABEL", "ALUMINIUMKABEL", "ISOLIERTE KABEL"], piktogram: "170411.jpeg" },
-        { code: "17 04 05", name: "Eisen und Stahl", items: ["STAHLKONSTRUKTIONEN", "ROHRE UND PROFILE", "BEWEHRUNGSSTÄBE"], piktogram: "170405.png" },
-        { code: "17 02 01", name: "Holz", items: ["EURO-PALETTEN", "BESCHÄDIGTE KISTEN", "SCHALUNGSBRETTER"], piktogram: "170201.png" },
-        { code: "17 01 02", name: "Ziegel", items: ["VOLLZIEGEL", "ZIEGELABFALL", "HOHLZIEGEL"], piktogram: "170102.png" },
-        { code: "17 05 04", name: "Boden und Steine (außer 17 05 03)", items: ["AUSHUBERDE", "STEIN", "AUSHUB"], piktogram: "170504.png" },
-        { code: "17 09 04", name: "Gemischte Abfälle aus Bau-, Renovierungs- und Abbrucharbeiten, andere als die unter 17 09 01, 17 09 02 und 17 09 03 genannten", items: ["BAUSCHUTT", "KERAMIK", "GIPSKARTONPLATTEN"], piktogram: "170904.png" },
+        { code: "17 04 11", name: "Kabel, ausgenommen 17 04 10", items: ["KUPFERKABEL", "ALUMINIUMKABEL", "ISOLIERTE KABEL"], piktogram: "img/170411.jpeg" },
+        { code: "17 04 05", name: "Eisen und Stahl", items: ["STAHLKONSTRUKTIONEN", "ROHRE UND PROFILE", "BEWEHRUNGSSTÄBE"], piktogram: "img/170405.png" },
+        { code: "17 02 01", name: "Holz", items: ["EURO-PALETTEN", "BESCHÄDIGTE KISTEN", "SCHALUNGSBRETTER"], piktogram: "img/170201.png" },
+        { code: "17 01 02", name: "Ziegel", items: ["VOLLZIEGEL", "ZIEGELABFALL", "HOHLZIEGEL"], piktogram: "img/170102.png" },
+        { code: "17 05 04", name: "Boden und Steine (außer 17 05 03)", items: ["AUSHUBERDE", "STEIN", "AUSHUB"], piktogram: "img/170504.png" },
+        { code: "17 09 04", name: "Gemischte Abfälle aus Bau-, Renovierungs- und Abbrucharbeiten, andere als die unter 17 09 01, 17 09 02 und 17 09 03 genannten", items: ["BAUSCHUTT", "KERAMIK", "GIPSKARTONPLATTEN"], piktogram: "img/170904.png" },
         { code: "15 01 01", name: "VERPACKUNGEN AUS PAPIER UND PAPPE", items: ["KARTONS", "VERPACKUNGSPAPIER", "PAPPHÜLSEN"], piktogram: "img/150101.jpeg" },
         { code: "15 01 02", name: "VERPACKUNGEN AUS KUNSTSTOFF", items: ["STRETCHFOLIE", "LEERE FLASCHEN", "PET-FLASCHEN", "KUNSTSTOFFPALETTEN"], piktogram: "img/150102.jpeg" },
     ];
@@ -299,11 +302,11 @@
     ];
 
     const COMMUNAL = [
-        { code: "20 01 01", name: "PAPIER", img: "papier.jpg", icon: "img2/papier.jpeg", yes: "Karton, Zeitungen, Flyer, Hefte, Büropapier", no: "Verschmutztes Papier, Papierhandtücher, Milchkartons" },
-        { code: "20 01 02", name: "GLAS", img: "szklo.jpg", icon: "img2/szkło.jpeg", yes: "Getränkeflaschen, Lebensmittelgläser, Glasverpackungen", no: "Keramik, Spiegel, Fensterscheiben, Glühbirnen, Thermometer" },
-        { code: "20 01 39", name: "KUNSTSTOFF / METALL", img: "plastik.jpg", icon: "img2/plastik.jpeg", yes: "Zerkleinerte PET-Flaschen, Dosen, Folie, Kronkorken, Verschlüsse", no: "Medikamentenverpackungen, Batterien, Farbdosen" },
-        { code: "20 03 01", name: "GEMISCHT", img: "zmieszane.jpg", icon: "img2/zmieszane.jpeg", yes: "Papierhandtücher, gebrauchte Masken, Speisereste (Fleisch)", no: "Gefährliche Abfälle, Elektroschrott, Bauschutt, Batterien" },
-        { code: "20 02 01", name: "BIO", img: "bio.jpg", icon: "img2/bio.jpeg", yes: "Schalen, Obst- und Gemüsereste, Grasschnitt, Äste", no: "Knochen, Fleisch, Tierkot, Erde, Steine" }
+        { code: "20 01 01", name: "PAPIER", img: "img/papier.jpeg", icon: "img/papier.jpeg", yes: "Karton, Zeitungen, Flyer, Hefte, Büropapier", no: "Verschmutztes Papier, Papierhandtücher, Milchkartons" },
+        { code: "20 01 02", name: "GLAS", img: "img/szkło.jpeg", icon: "img/szkło.jpeg", yes: "Getränkeflaschen, Lebensmittelgläser, Glasverpackungen", no: "Keramik, Spiegel, Fensterscheiben, Glühbirnen, Thermometer" },
+        { code: "20 01 39", name: "KUNSTSTOFF / METALL", img: "img/plastik.jpeg", icon: "img/plastik.jpeg", yes: "Zerkleinerte PET-Flaschen, Dosen, Folie, Kronkorken, Verschlüsse", no: "Medikamentenverpackungen, Batterien, Farbdosen" },
+        { code: "20 03 01", name: "GEMISCHT", img: "img/zmieszane.jpeg", icon: "img/zmieszane.jpeg", yes: "Papierhandtücher, gebrauchte Masken, Speisereste (Fleisch)", no: "Gefährliche Abfälle, Elektroschrott, Bauschutt, Batterien" },
+        { code: "20 02 01", name: "BIO", img: "img/bio.jpeg", icon: "img/bio.jpeg", yes: "Schalen, Obst- und Gemüsereste, Grasschnitt, Äste", no: "Knochen, Fleisch, Tierkot, Erde, Steine" }
     ];
 
     const BOARDS = ["Zur Entsorgung", "Leere Gasflaschen", "Volle Gasflaschen", "Gasflaschenlager", "Lager für gefährliche Chemikalien", "Gefährliche Stoffe/Gemische", "ADR-VERBANDSKASTEN", "GEFÄHRLICHE ABFÄLLE", "ABFALLLAGERBEREICH", "ABFALLSAMMELSTELLE", "ABFALLSAMMELPLATZ", "RAUCHVERBOT"];    
@@ -311,6 +314,23 @@
         { name: "STADE", zip: "00000", street: "" },
     ];
 
+    const PICTOGRAMS_BY_CODE = {
+        "150101": "img/150101.jpeg",
+        "150102": "img/150102.jpeg",
+        "150110": "img/150110.jpeg",
+        "150202": "img/150202.jpeg",
+        "170102": "img/170102.png",
+        "170201": "img/170201.png",
+        "170405": "img/170405.png",
+        "170411": "img/170411.jpeg",
+        "170504": "img/170504.png",
+        "170904": "img/170904.png"
+    };
+
+    function getPictogramForCode(code) {
+        const cleanCode = (code || "").replace(/\s+/g, "").replace("*", "");
+        return PICTOGRAMS_BY_CODE[cleanCode] || null;
+    }
     let currentMode = "normal";
     let isCommunal = false;
     let currentWaste = null;
@@ -402,12 +422,7 @@
         renderLabelTemplate();
         document.getElementById('live-catalog-search-area').style.display = 'block';
         
-        const cleanCode = code.replace(/\s+/g, '').replace('*', '');
-        currentWaste.piktogram = isDangerous ? `${cleanCode}.jpeg` : (["170411", "170405", "170201", "170102", "170504", "170904", "150101", "150102"].includes(cleanCode) ? `${cleanCode}.jpeg` : null);
-        
-        if (["170405", "170201", "170102", "170504", "170904"].includes(cleanCode)) {
-            currentWaste.piktogram = `${cleanCode}.png`;
-        }
+        currentWaste.piktogram = getPictogramForCode(code);
 
         document.getElementById('info-code').innerText = currentWaste.code;
         document.getElementById('info-name').innerText = currentWaste.name;
@@ -480,7 +495,7 @@
         if (currentMode === "danger") {
             r.className = "danger-mode";
             r.innerHTML = `
-                <div class="dg-title">GEFÄHRLICHE ABFÄLLE</div>
+                <img class="label-logo" src="ENPROM LOGO.jpg" alt="ENPROM Logo"><div class="dg-title">GEFÄHRLICHE ABFÄLLE</div>
                 <div class="dg-row">
                     <span class="dg-label">ABFALLCODE</span>
                     <div id="res-code" class="dg-value-code"></div>
@@ -511,10 +526,8 @@
         } else {
             r.className = "normal-mode";
             r.innerHTML = `
-                <div id="res-brand-container" style="width: 100%">
-                    <img id="res-brand-img" class="nm-logo-img" src="ENPROM.jpg" crossorigin="anonymous" style="display:none">
-                    <div id="res-brand-txt" class="nm-logo-txt">ENPROM</div>
-                </div>
+                <img class="label-logo" src="ENPROM LOGO.jpg" alt="ENPROM Logo">
+                <div id="res-brand-container" style="width: 100%; height: 75px;"></div>
                 <div id="res-code" class="nm-code"></div>
                 <div id="res-name" class="nm-name"></div>
                 <div id="res-content" class="nm-content"></div>
@@ -584,17 +597,8 @@
             const ico = document.getElementById('res-img-icon');
             const piktoNormal = document.getElementById('res-img-piktogram');
             
-            document.getElementById('res-brand-container').style.display = 'block';
-            
-            if (!isCommunal) {
-                const selectedType = document.getElementById('logoTypeSelect').value;
-                document.getElementById('res-brand-img').style.display = selectedType === 'img' ? 'inline-block' : 'none';
-                document.getElementById('res-brand-txt').style.display = selectedType === 'txt' ? 'block' : 'none';
-                document.getElementById('res-brand-txt').innerText = document.getElementById('brandInput').value || "ENPROM";
-            } else {
-                document.getElementById('res-brand-img').style.display = 'inline-block';
-                document.getElementById('res-brand-txt').style.display = 'none';
-            }
+            const brandContainer = document.getElementById('res-brand-container'); if (brandContainer) brandContainer.style.display = 'block';
+
             
             if (isCommunal) {
                 document.getElementById('res-content').style.display = 'none';
