@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>ENPROM-Generator für Etiketten und Schilder</title>
+    <title>ENPROM-Generator fĂĽr Etiketten und Schilder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -56,7 +56,14 @@
         #label-render.danger-mode .label-logo { left: 28px; top: 24px; width: 145px; max-height: 76px; }
         #label-render.normal-mode .label-logo { left: 34px; top: 28px; width: 170px; max-height: 88px; }
         
-        /* MODE: DANGER */
+        .label-header-slot { position: absolute; display: flex; align-items: flex-start; justify-content: center; z-index: 10; }
+        .danger-header-slot { left: 28px; top: 24px; width: 145px; min-height: 76px; }
+        .normal-header-slot { left: 34px; top: 28px; width: 170px; min-height: 88px; }
+        #label-render .label-header-slot .label-logo { position: static; left: auto; top: auto; width: 100%; max-height: 82px; object-fit: contain; }
+        .header-custom-text { width: 100%; color: #000; font-weight: 900; text-align: center; text-transform: uppercase; line-height: 1.05; word-break: break-word; }
+        #label-render.normal-mode .header-custom-text { font-size: 30px; border-bottom: 4px solid #000; padding-bottom: 6px; }
+        #label-render.danger-mode .header-custom-text { font-size: 22px; }
+/* MODE: DANGER */
         #label-render.danger-mode { width: 780px; height: 1200px; border: 25px solid red; padding: 30px; display: block; position: absolute; box-sizing: border-box; }
         .dg-title { font-size: 52px; font-weight: 900; text-align: center; margin-bottom: 20px; }
         .dg-row { border: 2px solid black; margin-bottom: -2px; padding: 10px 15px; position: relative; box-sizing: border-box; }
@@ -107,23 +114,23 @@
         <div class="section-title"><span>1</span> ARTEN VON ETIKETTEN UND SCHILDERN</div>
         <div class="quick-select-grid">
             <div class="quick-tile tile-custom" onclick="showLiveKatalogSearch()">
-                <b>🔍 ABFALLKATALOG</b>
+                <b>đź”Ť ABFALLKATALOG</b>
                 <small>Geben Sie einen beliebigen Code ein und generieren Sie</small>
             </div>
             <div class="quick-tile tile-board" onclick="showBoards()">
-                <b>⚠️ TAFELN</b>
+                <b>âš ď¸Ź TAFELN</b>
                 <small>Zonen / Verbote</small>
             </div>
             <div class="quick-tile" onclick="showCommunal()">
-                <b>♻️ KOMMUNAL</b>
+                <b>â™»ď¸Ź KOMMUNAL</b>
                 <small>Trennung</small>
             </div>
         </div>
 
-        <div class="section-title"><span>2</span> NICHT GEFÄHRLICHE ABFÄLLE (SCHNELLÜBERSICHT)</div>
+        <div class="section-title"><span>2</span> NICHT GEFĂ„HRLICHE ABFĂ„LLE (SCHNELLĂśBERSICHT)</div>
         <div class="quick-select-grid" id="grid-normal"></div>
 
-        <div class="section-title"><span>3</span> GEFÄHRLICHE ABFÄLLE (*) (SCHNELLWAHL)</div>
+        <div class="section-title"><span>3</span> GEFĂ„HRLICHE ABFĂ„LLE (*) (SCHNELLWAHL)</div>
         <div class="quick-select-grid" id="grid-danger"></div>
     </div>
 
@@ -132,7 +139,7 @@
             <strong id="info-code" style="font-size: 1.4rem;"></strong><br>
             <span id="info-name" class="small font-weight-bold"></span>
         </div>
-        <button class="btn btn-sm btn-outline-secondary" onclick="resetSelection()">Zurücksetzen / Zurück</button>
+        <button class="btn btn-sm btn-outline-secondary" onclick="resetSelection()">ZurĂĽcksetzen / ZurĂĽck</button>
     </div>
 
     <div id="content-selection-area">
@@ -141,8 +148,8 @@
                 <div class="section-title"><span>A</span> INHALT / TECHNISCHE DATEN</div>
                 
                 <div id="live-catalog-search-area" style="display:none;" class="p-3 mb-3 border rounded bg-light">
-                    <label class="small font-weight-bold text-primary">SUCHE NACH ABFÄLLEN IN DER GESAMTEN OFFIZIELLEN DATENBANK (gemäß AVV):</label>
-                    <input type="text" id="catalogSearchInput" class="form-control form-control-lg" placeholder="Geben Sie ein Wort (z. B. Schutt, Kabel, Öl) oder einen Code ein..." onkeyup="filterWasteCatalog(this.value)">
+                    <label class="small font-weight-bold text-primary">SUCHE NACH ABFĂ„LLEN IN DER GESAMTEN OFFIZIELLEN DATENBANK (gemĂ¤Ăź AVV):</label>
+                    <input type="text" id="catalogSearchInput" class="form-control form-control-lg" placeholder="Geben Sie ein Wort (z. B. Schutt, Kabel, Ă–l) oder einen Code ein..." onkeyup="filterWasteCatalog(this.value)">
                     <div id="search-results" class="search-results-box"></div>
                 </div>
 
@@ -158,11 +165,11 @@
                    <select id="logoTypeSelect" class="form-control mb-3" onchange="sync()">
                         <option value="img">FIRMENLOGO</option>
                         <option value="txt">EIGENER TEXT</option>
-                        <option value="none">KEINE ÜBERSCHRIFT</option>
+                        <option value="none">KEINE ĂśBERSCHRIFT</option>
                     </select>
                      <div id="brand-text-input-group">
-                        <label class="small font-weight-bold">ÜBERSCHRIFT:</label>
-                        <input type="text" id="brandInput" class="form-control" placeholder="z. B. ENPROM GmbH" value="ENPROM" onkeyup="sync()">
+                        <label class="small font-weight-bold">ĂśBERSCHRIFT:</label>
+                        <input type="text" id="brandInput" class="form-control" placeholder="z. B. ENPROM GmbH" value="ENPROM" oninput="sync()">
                      </div>
                 </div>
             </div>
@@ -186,7 +193,7 @@
                     </div>
 
                     <label class="small mb-1">Genaue Adresse:</label>
-                    <input type="text" id="streetInput" class="form-control mb-3" placeholder="Straße, Hausnummer oder Streckenabschnitt..." onkeyup="sync()">
+                    <input type="text" id="streetInput" class="form-control mb-3" placeholder="StraĂźe, Hausnummer oder Streckenabschnitt..." onkeyup="sync()">
 
                     <h6 class="font-weight-bold border-bottom pb-1 text-secondary">2. LAGERORT (falls zutreffend)</h6>
                     <label class="small mb-1">Standort / Ort II:</label>
@@ -219,67 +226,67 @@
 
 <script>
     const WASTES = [
-        { code: "15 01 10*", name: "VERPACKUNGEN, DIE RÜCKSTÄNDE GEFÄHRLICHER STOFFE ENTHALTEN", items: ["FARBBEHÄLTER", "FETTVERPACKUNGEN", "AEROSOLE", "CHEMIEFLASCHEN"], piktogram: "img/150110.jpeg" },
-        { code: "15 02 02*", name: "SORPTIONSMITTEL, FILTERMATERIALIEN, WISCHTÜCHER UND SCHUTZKLEIDUNG, DIE MIT GEFÄHRLICHEN STOFFEN VERUNREINIGT SIND", items: ["ÖL-LAPPEN", "SORPTIONSMITTEL", "ÖLFILTER", "GEBRAUCHTE HANDSCHUHE"], piktogram: "img/150202.jpeg" },
-        { code: "16 02 13*", name: "Gebrauchte (gefährliche) Geräte", items: ["COMPUTER/MONITORE", "ELEKTROWERKZEUGE", "TRANSFORMATOREN"] },
-        { code: "17 04 10*", name: "Kabel, die Erdöl, Teer und andere gefährliche Stoffe enthalten", items: ["ÖLKABEL", "TEERKABEL"] },
+        { code: "15 01 10*", name: "VERPACKUNGEN, DIE RĂśCKSTĂ„NDE GEFĂ„HRLICHER STOFFE ENTHALTEN", items: ["FARBBEHĂ„LTER", "FETTVERPACKUNGEN", "AEROSOLE", "CHEMIEFLASCHEN"], piktogram: "img/150110.jpeg" },
+        { code: "15 02 02*", name: "SORPTIONSMITTEL, FILTERMATERIALIEN, WISCHTĂśCHER UND SCHUTZKLEIDUNG, DIE MIT GEFĂ„HRLICHEN STOFFEN VERUNREINIGT SIND", items: ["Ă–L-LAPPEN", "SORPTIONSMITTEL", "Ă–LFILTER", "GEBRAUCHTE HANDSCHUHE"], piktogram: "img/150202.jpeg" },
+        { code: "16 02 13*", name: "Gebrauchte (gefĂ¤hrliche) GerĂ¤te", items: ["COMPUTER/MONITORE", "ELEKTROWERKZEUGE", "TRANSFORMATOREN"] },
+        { code: "17 04 10*", name: "Kabel, die ErdĂ¶l, Teer und andere gefĂ¤hrliche Stoffe enthalten", items: ["Ă–LKABEL", "TEERKABEL"] },
         { code: "16 06 01*", name: "Blei-Batterien und -Akkumulatoren", items: ["FAHRZEUG-AKKUS", "USV-BATTERIEN"] },
-        { code: "16 02 16", name: "Gebrauchte Geräte, die nicht unter 16 02 09 bis 16 02 15 aufgeführt sind", items: ["WASSERKOCHER/HAUSHALTSGERÄTE", "ELEKTRISCHE GERÄTE", "TASTATUREN/MÄUSE", "KABEL UND LEITUNGEN"] },
-        { code: "17 04 07", name: "Metallgemische", items: ["NE-METALLE", "GEMISCHTER SCHROTT", "GERÄTETEILE"] },
+        { code: "16 02 16", name: "Gebrauchte GerĂ¤te, die nicht unter 16 02 09 bis 16 02 15 aufgefĂĽhrt sind", items: ["WASSERKOCHER/HAUSHALTSGERĂ„TE", "ELEKTRISCHE GERĂ„TE", "TASTATUREN/MĂ„USE", "KABEL UND LEITUNGEN"] },
+        { code: "17 04 07", name: "Metallgemische", items: ["NE-METALLE", "GEMISCHTER SCHROTT", "GERĂ„TETEILE"] },
         { code: "17 04 11", name: "Kabel, ausgenommen 17 04 10", items: ["KUPFERKABEL", "ALUMINIUMKABEL", "ISOLIERTE KABEL"], piktogram: "img/170411.jpeg" },
-        { code: "17 04 05", name: "Eisen und Stahl", items: ["STAHLKONSTRUKTIONEN", "ROHRE UND PROFILE", "BEWEHRUNGSSTÄBE"], piktogram: "img/170405.png" },
-        { code: "17 02 01", name: "Holz", items: ["EURO-PALETTEN", "BESCHÄDIGTE KISTEN", "SCHALUNGSBRETTER"], piktogram: "img/170201.png" },
+        { code: "17 04 05", name: "Eisen und Stahl", items: ["STAHLKONSTRUKTIONEN", "ROHRE UND PROFILE", "BEWEHRUNGSSTĂ„BE"], piktogram: "img/170405.png" },
+        { code: "17 02 01", name: "Holz", items: ["EURO-PALETTEN", "BESCHĂ„DIGTE KISTEN", "SCHALUNGSBRETTER"], piktogram: "img/170201.png" },
         { code: "17 01 02", name: "Ziegel", items: ["VOLLZIEGEL", "ZIEGELABFALL", "HOHLZIEGEL"], piktogram: "img/170102.png" },
-        { code: "17 05 04", name: "Boden und Steine (außer 17 05 03)", items: ["AUSHUBERDE", "STEIN", "AUSHUB"], piktogram: "img/170504.png" },
-        { code: "17 09 04", name: "Gemischte Abfälle aus Bau-, Renovierungs- und Abbrucharbeiten, andere als die unter 17 09 01, 17 09 02 und 17 09 03 genannten", items: ["BAUSCHUTT", "KERAMIK", "GIPSKARTONPLATTEN"], piktogram: "img/170904.png" },
-        { code: "15 01 01", name: "VERPACKUNGEN AUS PAPIER UND PAPPE", items: ["KARTONS", "VERPACKUNGSPAPIER", "PAPPHÜLSEN"], piktogram: "img/150101.jpeg" },
+        { code: "17 05 04", name: "Boden und Steine (auĂźer 17 05 03)", items: ["AUSHUBERDE", "STEIN", "AUSHUB"], piktogram: "img/170504.png" },
+        { code: "17 09 04", name: "Gemischte AbfĂ¤lle aus Bau-, Renovierungs- und Abbrucharbeiten, andere als die unter 17 09 01, 17 09 02 und 17 09 03 genannten", items: ["BAUSCHUTT", "KERAMIK", "GIPSKARTONPLATTEN"], piktogram: "img/170904.png" },
+        { code: "15 01 01", name: "VERPACKUNGEN AUS PAPIER UND PAPPE", items: ["KARTONS", "VERPACKUNGSPAPIER", "PAPPHĂśLSEN"], piktogram: "img/150101.jpeg" },
         { code: "15 01 02", name: "VERPACKUNGEN AUS KUNSTSTOFF", items: ["STRETCHFOLIE", "LEERE FLASCHEN", "PET-FLASCHEN", "KUNSTSTOFFPALETTEN"], piktogram: "img/150102.jpeg" },
     ];
 
     const VOLLSTAENDIGE_KATALOGDATENBANK = [
-        { code: "01 04 08", name: "Abfallkies oder zerkleinertes Gestein, ausgenommen die unter 01 04 07 aufgeführten Abfälle" },
+        { code: "01 04 08", name: "Abfallkies oder zerkleinertes Gestein, ausgenommen die unter 01 04 07 aufgefĂĽhrten AbfĂ¤lle" },
         { code: "01 04 09", name: "Abfallsand und -ton" },
-        { code: "02 01 04", name: "Kunststoffabfälle (ausgenommen Verpackungen)" },
-        { code: "03 01 05", name: "Sägemehl, Späne, Holzabfälle, Holz, Spanplatten und Furnier, die nicht unter 03 01 04 fallen" },
-        { code: "08 01 11*", name: "Farb- und Lackabfälle, die organische Lösungsmittel oder andere gefährliche Stoffe enthalten" },
-        { code: "08 01 12", name: "Farb- und Lackabfälle, die nicht unter 08 01 11 fallen" },
-        { code: "12 01 01", name: "Abfälle aus dem Drehen und Sägen von Eisen und seinen Legierungen" },
-        { code: "12 01 09*", name: "Abfall-Emulsionen und wässrige Lösungen, die keine Halogene enthalten" },
-        { code: "13 01 10*", name: "Mineralische Hydrauliköle, die keine Halogene enthalten" },
-        { code: "13 02 05*", name: "Mineralische Motor-, Getriebe- und Schmieröle, die keine Halogene enthalten" },
-        { code: "13 05 02*", name: "Schlämme aus der Ölentwässerung in Abscheidern" },
-        { code: "13 07 01*", name: "Heizöl und Dieselkraftstoff" },
-        { code: "14 06 03*", name: "Sonstige Lösungsmittel und Lösungsmittelgemische" },
+        { code: "02 01 04", name: "KunststoffabfĂ¤lle (ausgenommen Verpackungen)" },
+        { code: "03 01 05", name: "SĂ¤gemehl, SpĂ¤ne, HolzabfĂ¤lle, Holz, Spanplatten und Furnier, die nicht unter 03 01 04 fallen" },
+        { code: "08 01 11*", name: "Farb- und LackabfĂ¤lle, die organische LĂ¶sungsmittel oder andere gefĂ¤hrliche Stoffe enthalten" },
+        { code: "08 01 12", name: "Farb- und LackabfĂ¤lle, die nicht unter 08 01 11 fallen" },
+        { code: "12 01 01", name: "AbfĂ¤lle aus dem Drehen und SĂ¤gen von Eisen und seinen Legierungen" },
+        { code: "12 01 09*", name: "Abfall-Emulsionen und wĂ¤ssrige LĂ¶sungen, die keine Halogene enthalten" },
+        { code: "13 01 10*", name: "Mineralische HydraulikĂ¶le, die keine Halogene enthalten" },
+        { code: "13 02 05*", name: "Mineralische Motor-, Getriebe- und SchmierĂ¶le, die keine Halogene enthalten" },
+        { code: "13 05 02*", name: "SchlĂ¤mme aus der Ă–lentwĂ¤sserung in Abscheidern" },
+        { code: "13 07 01*", name: "HeizĂ¶l und Dieselkraftstoff" },
+        { code: "14 06 03*", name: "Sonstige LĂ¶sungsmittel und LĂ¶sungsmittelgemische" },
         { code: "15 01 01", name: "Verpackungen aus Papier und Pappe" },
         { code: "15 01 02", name: "Verpackungen aus Kunststoff" },
         { code: "15 01 03", name: "Verpackungen aus Holz" },
         { code: "15 01 04", name: "Verpackungen aus Metall" },
         { code: "15 01 05", name: "Verpackungen aus mehreren Materialien" },
         { code: "15 01 07", name: "Verpackungen aus Glas" },
-        { code: "15 01 10*", name: "Verpackungen, die Rückstände gefährlicher Stoffe enthalten oder durch diese verunreinigt sind" },
-        { code: "15 02 02*", name: "Mit gefährlichen Stoffen verunreinigte Aufsaug- und Filtermaterialien, Wischtücher und Schutzkleidung" },
-        { code: "15 02 03", name: "Aufsaug- und Filtermaterialien, Wischtücher und Schutzkleidung, die nicht unter 15 02 02 fallen" },
+        { code: "15 01 10*", name: "Verpackungen, die RĂĽckstĂ¤nde gefĂ¤hrlicher Stoffe enthalten oder durch diese verunreinigt sind" },
+        { code: "15 02 02*", name: "Mit gefĂ¤hrlichen Stoffen verunreinigte Aufsaug- und Filtermaterialien, WischtĂĽcher und Schutzkleidung" },
+        { code: "15 02 03", name: "Aufsaug- und Filtermaterialien, WischtĂĽcher und Schutzkleidung, die nicht unter 15 02 02 fallen" },
         { code: "16 01 03", name: "Altreifen" },
-        { code: "16 01 07*", name: "Ölfilter" },
+        { code: "16 01 07*", name: "Ă–lfilter" },
         { code: "16 01 17", name: "Eisenmetalle (aus Fahrzeugen)" },
         { code: "16 01 18", name: "Nichteisenmetalle (aus Fahrzeugen)" },
-        { code: "16 02 13*", name: "Altgeräte, die gefährliche Bestandteile enthalten" },
-        { code: "16 02 14", name: "Altgeräte, die nicht unter 16 02 09 bis 16 02 13 fallen" },
-        { code: "16 02 16", name: "Aus Altgeräten entfernte Bauteile, die nicht unter 16 02 15 fallen" },
+        { code: "16 02 13*", name: "AltgerĂ¤te, die gefĂ¤hrliche Bestandteile enthalten" },
+        { code: "16 02 14", name: "AltgerĂ¤te, die nicht unter 16 02 09 bis 16 02 13 fallen" },
+        { code: "16 02 16", name: "Aus AltgerĂ¤ten entfernte Bauteile, die nicht unter 16 02 15 fallen" },
         { code: "16 06 01*", name: "Blei-Batterien und -Akkumulatoren" },
         { code: "16 06 02*", name: "Nickel-Cadmium-Batterien und -Akkumulatoren" },
         { code: "16 06 04", name: "Alkalibatterien" },
         { code: "16 06 05", name: "Sonstige Batterien und Akkumulatoren" },
-        { code: "17 01 01", name: "Betonabfälle und Betonbruch aus Abbruch- und Sanierungsarbeiten" },
+        { code: "17 01 01", name: "BetonabfĂ¤lle und Betonbruch aus Abbruch- und Sanierungsarbeiten" },
         { code: "17 01 02", name: "Ziegelbruch" },
-        { code: "17 01 03", name: "Abfälle aus anderen keramischen Materialien und Einrichtungsgegenständen" },
-        { code: "17 01 06*", name: "Gemischte oder sortierte Abfälle aus Beton und Ziegelbruch, die gefährliche Stoffe enthalten" },
-        { code: "17 01 07", name: "Gemische aus Beton, Ziegelbruch und keramischen Abfällen, die nicht unter 17 01 06 fallen" },
+        { code: "17 01 03", name: "AbfĂ¤lle aus anderen keramischen Materialien und EinrichtungsgegenstĂ¤nden" },
+        { code: "17 01 06*", name: "Gemischte oder sortierte AbfĂ¤lle aus Beton und Ziegelbruch, die gefĂ¤hrliche Stoffe enthalten" },
+        { code: "17 01 07", name: "Gemische aus Beton, Ziegelbruch und keramischen AbfĂ¤llen, die nicht unter 17 01 06 fallen" },
         { code: "17 02 01", name: "Holz aus Bau- und Abbrucharbeiten" },
         { code: "17 02 02", name: "Bauglas" },
         { code: "17 02 03", name: "Kunststoffe aus dem Bauwesen" },
-        { code: "17 02 04*", name: "Holz-, Glas- und Kunststoffabfälle, die gefährliche Stoffe enthalten" },
-        { code: "17 03 02", name: "Asphalt und bituminöse Gemische, die nicht unter 17 03 01 fallen" },
+        { code: "17 02 04*", name: "Holz-, Glas- und KunststoffabfĂ¤lle, die gefĂ¤hrliche Stoffe enthalten" },
+        { code: "17 03 02", name: "Asphalt und bituminĂ¶se Gemische, die nicht unter 17 03 01 fallen" },
         { code: "17 04 01", name: "Kupfer, Bronze, Messing" },
         { code: "17 04 02", name: "Aluminium" },
         { code: "17 04 03", name: "Blei" },
@@ -287,29 +294,29 @@
         { code: "17 04 05", name: "Eisen und Stahl" },
         { code: "17 04 06", name: "Zinn" },
         { code: "17 04 07", name: "Metallgemische" },
-        { code: "17 04 09*", name: "Mit gefährlichen Stoffen verunreinigte Metallabfälle" },
-        { code: "17 04 10*", name: "Kabel, die Erdöl, Teer und andere gefährliche Stoffe enthalten" },
+        { code: "17 04 09*", name: "Mit gefĂ¤hrlichen Stoffen verunreinigte MetallabfĂ¤lle" },
+        { code: "17 04 10*", name: "Kabel, die ErdĂ¶l, Teer und andere gefĂ¤hrliche Stoffe enthalten" },
         { code: "17 04 11", name: "Kabel, die nicht unter 17 04 10 fallen" },
-        { code: "17 05 04", name: "Boden und Erde, einschließlich Steine, mit Ausnahme derjenigen, die unter 17 05 03 aufgeführt sind" },
-        { code: "17 05 08", name: "Gleisschotter (Zuschlagstoff), mit Ausnahme desjenigen, der unter 17 05 07 aufgeführt ist" },
-        { code: "17 06 04", name: "Dämmstoffe, die nicht unter 17 06 01 und 17 06 03 aufgeführt sind (z. B. Mineralwolle)" },
+        { code: "17 05 04", name: "Boden und Erde, einschlieĂźlich Steine, mit Ausnahme derjenigen, die unter 17 05 03 aufgefĂĽhrt sind" },
+        { code: "17 05 08", name: "Gleisschotter (Zuschlagstoff), mit Ausnahme desjenigen, der unter 17 05 07 aufgefĂĽhrt ist" },
+        { code: "17 06 04", name: "DĂ¤mmstoffe, die nicht unter 17 06 01 und 17 06 03 aufgefĂĽhrt sind (z. B. Mineralwolle)" },
         { code: "17 08 02", name: "Gipshaltige Baustoffe, die nicht unter 17 08 01 fallen" },
-        { code: "17 09 04", name: "Gemischte Abfälle aus Bau-, Renovierungs- und Abbrucharbeiten, die nicht unter 17 09 01, 17 09 02 und 17 09 03 fallen" },
-        { code: "20 01 21*", name: "Leuchtstoffröhren und andere quecksilberhaltige Abfälle" },
-        { code: "20 01 23*", name: "Kühl- und Klimaanlagen, die Fluorchlorkohlenwasserstoffe enthalten" },
-        { code: "20 01 35*", name: "Elektro- und Elektronikaltgeräte, die nicht unter 20 01 21 und 20 01 23 fallen und gefährliche Bestandteile enthalten" },
-        { code: "20 01 36", name: "Elektro- und Elektronikaltgeräte, die nicht unter 20 01 21, 20 01 23 und 20 01 35 fallen" }
+        { code: "17 09 04", name: "Gemischte AbfĂ¤lle aus Bau-, Renovierungs- und Abbrucharbeiten, die nicht unter 17 09 01, 17 09 02 und 17 09 03 fallen" },
+        { code: "20 01 21*", name: "LeuchtstoffrĂ¶hren und andere quecksilberhaltige AbfĂ¤lle" },
+        { code: "20 01 23*", name: "KĂĽhl- und Klimaanlagen, die Fluorchlorkohlenwasserstoffe enthalten" },
+        { code: "20 01 35*", name: "Elektro- und ElektronikaltgerĂ¤te, die nicht unter 20 01 21 und 20 01 23 fallen und gefĂ¤hrliche Bestandteile enthalten" },
+        { code: "20 01 36", name: "Elektro- und ElektronikaltgerĂ¤te, die nicht unter 20 01 21, 20 01 23 und 20 01 35 fallen" }
     ];
 
     const COMMUNAL = [
-        { code: "20 01 01", name: "PAPIER", img: "img/papier.jpeg", icon: "img/papier.jpeg", yes: "Karton, Zeitungen, Flyer, Hefte, Büropapier", no: "Verschmutztes Papier, Papierhandtücher, Milchkartons" },
-        { code: "20 01 02", name: "GLAS", img: "img/szkło.jpeg", icon: "img/szkło.jpeg", yes: "Getränkeflaschen, Lebensmittelgläser, Glasverpackungen", no: "Keramik, Spiegel, Fensterscheiben, Glühbirnen, Thermometer" },
-        { code: "20 01 39", name: "KUNSTSTOFF / METALL", img: "img/plastik.jpeg", icon: "img/plastik.jpeg", yes: "Zerkleinerte PET-Flaschen, Dosen, Folie, Kronkorken, Verschlüsse", no: "Medikamentenverpackungen, Batterien, Farbdosen" },
-        { code: "20 03 01", name: "GEMISCHT", img: "img/zmieszane.jpeg", icon: "img/zmieszane.jpeg", yes: "Papierhandtücher, gebrauchte Masken, Speisereste (Fleisch)", no: "Gefährliche Abfälle, Elektroschrott, Bauschutt, Batterien" },
-        { code: "20 02 01", name: "BIO", img: "img/bio.jpeg", icon: "img/bio.jpeg", yes: "Schalen, Obst- und Gemüsereste, Grasschnitt, Äste", no: "Knochen, Fleisch, Tierkot, Erde, Steine" }
+        { code: "20 01 01", name: "PAPIER", img: "img/papier.jpeg", icon: "img/papier.jpeg", yes: "Karton, Zeitungen, Flyer, Hefte, BĂĽropapier", no: "Verschmutztes Papier, PapierhandtĂĽcher, Milchkartons" },
+        { code: "20 01 02", name: "GLAS", img: "img/szkĹ‚o.jpeg", icon: "img/szkĹ‚o.jpeg", yes: "GetrĂ¤nkeflaschen, LebensmittelglĂ¤ser, Glasverpackungen", no: "Keramik, Spiegel, Fensterscheiben, GlĂĽhbirnen, Thermometer" },
+        { code: "20 01 39", name: "KUNSTSTOFF / METALL", img: "img/plastik.jpeg", icon: "img/plastik.jpeg", yes: "Zerkleinerte PET-Flaschen, Dosen, Folie, Kronkorken, VerschlĂĽsse", no: "Medikamentenverpackungen, Batterien, Farbdosen" },
+        { code: "20 03 01", name: "GEMISCHT", img: "img/zmieszane.jpeg", icon: "img/zmieszane.jpeg", yes: "PapierhandtĂĽcher, gebrauchte Masken, Speisereste (Fleisch)", no: "GefĂ¤hrliche AbfĂ¤lle, Elektroschrott, Bauschutt, Batterien" },
+        { code: "20 02 01", name: "BIO", img: "img/bio.jpeg", icon: "img/bio.jpeg", yes: "Schalen, Obst- und GemĂĽsereste, Grasschnitt, Ă„ste", no: "Knochen, Fleisch, Tierkot, Erde, Steine" }
     ];
 
-    const BOARDS = ["Zur Entsorgung", "Leere Gasflaschen", "Volle Gasflaschen", "Gasflaschenlager", "Lager für gefährliche Chemikalien", "Gefährliche Stoffe/Gemische", "ADR-VERBANDSKASTEN", "GEFÄHRLICHE ABFÄLLE", "ABFALLLAGERBEREICH", "ABFALLSAMMELSTELLE", "ABFALLSAMMELPLATZ", "RAUCHVERBOT"];    
+    const BOARDS = ["Zur Entsorgung", "Leere Gasflaschen", "Volle Gasflaschen", "Gasflaschenlager", "Lager fĂĽr gefĂ¤hrliche Chemikalien", "GefĂ¤hrliche Stoffe/Gemische", "ADR-VERBANDSKASTEN", "GEFĂ„HRLICHE ABFĂ„LLE", "ABFALLLAGERBEREICH", "ABFALLSAMMELSTELLE", "ABFALLSAMMELPLATZ", "RAUCHVERBOT"];    
     const LOCATIONS = [
         { name: "STADE", zip: "00000", street: "" },
     ];
@@ -432,8 +439,8 @@
     function showCommunal() {
         currentMode = "normal";
         isCommunal = true;
-        currentWaste = { code: "---", name: "FRAKTION AUSWÄHLEN" };
-        setupUI("Kommunale Abfälle");
+        currentWaste = { code: "---", name: "FRAKTION AUSWĂ„HLEN" };
+        setupUI("Kommunale AbfĂ¤lle");
         document.getElementById('live-catalog-search-area').style.display = 'none';
         document.getElementById('manual-input-area').style.display = 'none';
         document.getElementById('dynamic-checkboxes').innerHTML = COMMUNAL.map(c => `
@@ -454,7 +461,7 @@
     function showBoards() {
         currentMode = "board";
         isCommunal = false;
-        currentWaste = { code: "TAFEL", name: "Inhalt auswählen" };
+        currentWaste = { code: "TAFEL", name: "Inhalt auswĂ¤hlen" };
         setupUI("Informationstafeln");
         document.getElementById('live-catalog-search-area').style.display = 'none';
         document.getElementById('manual-input-area').style.display = 'none';
@@ -479,7 +486,7 @@
         document.getElementById('content-selection-area').style.display = 'block';
         
         document.getElementById('extra-fields').style.display = (currentMode === "danger") ? 'block' : 'none';
-        document.getElementById('normal-extra-config').style.display = (currentMode === "normal" && !isCommunal) ? 'block' : 'none';
+        document.getElementById('normal-extra-config').style.display = (currentMode !== "board" && !isCommunal) ? 'block' : 'none';
         
         if (isCommunal || currentMode === "board") {
             document.getElementById('location-col').style.display = 'none';
@@ -495,17 +502,17 @@
         if (currentMode === "danger") {
             r.className = "danger-mode";
             r.innerHTML = `
-                <img class="label-logo" src="ENPROM LOGO.jpg" alt="ENPROM Logo"><div class="dg-title">GEFÄHRLICHE ABFÄLLE</div>
+                <div id="res-header" class="label-header-slot danger-header-slot"></div><div class="dg-title">GEFĂ„HRLICHE ABFĂ„LLE</div>
                 <div class="dg-row">
                     <span class="dg-label">ABFALLCODE</span>
                     <div id="res-code" class="dg-value-code"></div>
                     <img id="res-img-piktogram-danger" class="dg-piktogram" src="" crossorigin="anonymous" style="display:none;">
                 </div>
-                <div class="dg-row"><span class="dg-label">ART DER GELAGERTEN ABFÄLLE</span><div id="res-name" class="dg-value-name"></div></div>
+                <div class="dg-row"><span class="dg-label">ART DER GELAGERTEN ABFĂ„LLE</span><div id="res-name" class="dg-value-name"></div></div>
                 <div class="dg-row"><span class="dg-label">INHALT</span><div id="res-content" class="dg-value-content"></div></div>
                 <table class="dg-table">
                     <tr>
-                        <th>ADRESSE UND LAGERSTÄTTEN FÜR ABFÄLLE</th>
+                        <th>ADRESSE UND LAGERSTĂ„TTEN FĂśR ABFĂ„LLE</th>
                         <th>BEGINN DER LAGERUNG</th>
                     </tr>
                     <tr>
@@ -526,8 +533,7 @@
         } else {
             r.className = "normal-mode";
             r.innerHTML = `
-                <img class="label-logo" src="ENPROM LOGO.jpg" alt="ENPROM Logo">
-                <div id="res-brand-container" style="width: 100%; height: 75px;"></div>
+                <div id="res-header" class="label-header-slot normal-header-slot"></div>
                 <div id="res-code" class="nm-code"></div>
                 <div id="res-name" class="nm-name"></div>
                 <div id="res-content" class="nm-content"></div>
@@ -550,6 +556,28 @@
         }
     }
 
+    function updateHeader() {
+        const header = document.getElementById('res-header');
+        const select = document.getElementById('logoTypeSelect');
+        const inputGroup = document.getElementById('brand-text-input-group');
+        const logoType = select ? select.value : 'img';
+        const brandInput = document.getElementById('brandInput');
+        const brandText = (brandInput && brandInput.value.trim()) ? brandInput.value.trim() : 'ENPROM';
+
+        if (inputGroup) inputGroup.style.display = logoType === 'txt' ? 'block' : 'none';
+        if (!header) return;
+
+        if (logoType === 'none') {
+            header.innerHTML = '';
+            header.style.display = 'none';
+        } else if (logoType === 'txt') {
+            header.innerHTML = `<div class="header-custom-text">${brandText}</div>`;
+            header.style.display = 'flex';
+        } else {
+            header.innerHTML = `<img class="label-logo" src="ENPROM LOGO.jpg" alt="ENPROM Logo" crossorigin="anonymous">`;
+            header.style.display = 'flex';
+        }
+    }
     function toggleOption(el) {
         const checkClass = (currentMode === 'danger') ? 'danger-checked' : 'checked';
         el.classList.toggle(checkClass);
@@ -558,6 +586,7 @@
 
     function sync() {
         if (!currentWaste) return;
+        updateHeader();
         
         if (currentMode === "danger") {
             document.getElementById('res-code').innerText = currentWaste.code;
@@ -635,7 +664,7 @@
 
    async function generatePDF() {
         const btn = document.getElementById('btnGen');
-        btn.innerText = "⏳ WIRD GENERIERT..."; 
+        btn.innerText = "âŹł WIRD GENERIERT..."; 
         btn.disabled = true;
 
         try {
